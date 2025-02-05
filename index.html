@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>apk下载</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        button {
+            font-weight: bold;
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            margin: 20px;
+            background-color: #678dd0;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px #999;
+            transition: all 0.3s ease;
+        }
+
+        /* 动态果冻窗口 */
+        .jelly-window {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: scale(0);
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #878787;
+            font-style: italic;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        /* 动态果冻效果 */
+        .jelly-window.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* 弹性果冻效果 */
+        .jelly-window.animate {
+            animation: jelly-animation 0.5s ease-out;
+        }
+
+        @keyframes jelly-animation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="comboBtn">点击下载 Aurora Store</button>
+
+    <!-- 动态果冻窗口 -->
+    <div id="jellyWindow" class="jelly-window">
+        <p>打开浏览器下载列表等待 apk 下载完成...点击安装</p>
+    </div>
+
+    <script>
+        const button = document.getElementById('comboBtn');
+        const jellyWindow = document.getElementById('jellyWindow');
+
+        // 监听鼠标按下事件
+        button.addEventListener('mousedown', function() {
+            // 显示果冻窗口
+            jellyWindow.classList.add('show');
+            
+            // 添加果冻弹性动画
+            jellyWindow.classList.add('animate');
+            
+            // 移除动画效果，让其可以重复使用
+            setTimeout(() => {
+                jellyWindow.classList.remove('animate');
+            }, 500);
+
+            // 延时触发下载
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'Aurora Store_4.6.2.apk';  // APK 文件的路径
+                link.download = 'Aurora Store_4.6.2.apk';  // 下载的文件名
+                link.click();  // 触发下载
+            }, 500);  // 等待果冻窗口显示动画完成后再下载
+        });
+    </script>
+
+</body>
+</html>
